@@ -1,0 +1,36 @@
+reference:
+  bundle: /path/to/buffalo_annotation
+  nonref_prefix: NR_
+  # Optional overrides (must refer to the same assembly):
+  # extended_fasta: /path/to/extended.fa
+  # guide_gtf: /path/to/guide.gtf
+  # original_fasta: /path/to/original.fa
+  # original_gtf: /path/to/reference.normalized.gtf
+  # nonref_gtf: /path/to/nonref.guide.gtf
+  # nonref_contigs: /path/to/nonref_contigs.txt
+reads:
+  cleaned: true
+resources:
+  threads: 64
+  jobs: 3
+  minimum_free_gib: 80
+  sort_memory: 768M
+expression:
+  tpm: 1
+  min_samples: 1
+homology:
+  enabled: false
+  # database: /path/to/combined_db.dmnd
+  evalue: 0.00001
+  max_targets: 25
+analysis:
+  plots: false
+  differential: false
+  control: Early
+  treatment: Late
+  cpm: 1
+  min_samples: 4
+compare_original: false
+pilot_pairs: 200000
+strand_min_reads: 1000
+tools: {}

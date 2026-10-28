@@ -1,0 +1,22 @@
+name: nonref-rna
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - pip
+  - pyyaml>=6
+  - fastp>=0.23
+  - hisat2>=2.2
+  - samtools>=1.15
+  - stringtie>=2.1
+  - subread>=2.0
+  - gffcompare>=0.12
+  - gffread>=0.12
+  - diamond>=2.1
+  - r-base>=4.3
+  - r-jsonlite
+  - r-ggplot2
+  - r-patchwork
+  - r-statmod
+  - bioconductor-edger>=4

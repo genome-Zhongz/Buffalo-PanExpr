@@ -1,0 +1,6 @@
+cff-version: 1.2.0
+message: "Research software draft: add the real authors and repository URL before release."
+title: "nonref-rna: RNA-supported nonreference gene candidates"
+version: 0.1.0
+type: software
+date-released: 2026-10-28

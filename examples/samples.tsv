@@ -1,0 +1,5 @@
+sample	r1	r2	tissue	breed	group	individual	strandedness
+Early1	/path/to/Early1_R1.fastq.gz	/path/to/Early1_R2.fastq.gz	Mammary	Buffalo	Early	animal1	auto
+Early2	/path/to/Early2_R1.fastq.gz	/path/to/Early2_R2.fastq.gz	Mammary	Buffalo	Early	animal2	auto
+Late1	/path/to/Late1_R1.fastq.gz	/path/to/Late1_R2.fastq.gz	Mammary	Buffalo	Late	animal3	auto
+Late2	/path/to/Late2_R1.fastq.gz	/path/to/Late2_R2.fastq.gz	Mammary	Buffalo	Late	animal4	auto
