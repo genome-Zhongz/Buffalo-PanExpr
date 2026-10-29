@@ -17,7 +17,7 @@ python -m pip install .
 nonref-rna --help
 ```
 
-The environment file is a dependency specification, not a solved lockfile. Record actual tool versions from `logs/versions.txt` and the homology manifest. Linux and Python >=3.10 are required for full runs. Summaries and unit tests can also run on Windows.
+The environment file is a dependency specification, not a solved lockfile. Record actual tool versions from "logs/versions.txt" and the homology manifest. Linux and Python >=3.10 are required for full runs. Summaries and unit tests can also run on Windows.
 
 ## Start with an existing reference bundle
 
@@ -53,7 +53,7 @@ Early1  /reads/Early1_R1.fastq.gz /reads/Early1_R2.fastq.gz Mammary  Buffalo  Ea
 Late1   /reads/Late1_R1.fastq.gz  /reads/Late1_R2.fastq.gz  Mammary  Buffalo  Late   animal2     auto
 ```
 
-Only `sample`, `r1`, `r2` are required. The example above is visual; use real TAB characters, as in `examples/samples.tsv`. Paths are relative to the samples file. `.fastq` and `.fastq.gz` are accepted. `strandedness`: `auto`, `rf`, `fr`, `unstranded`. `individual` records metadata; the current differential model is an **unpaired two-group** model. Paired or repeated-measure designs must be analyzed with a suitable model outside this release.
+Only sample ,  r1 ,  r2  are required. The example above is visual; use real TAB characters, as in `examples/samples.tsv`. Paths are relative to the samples file. `.fastq` and `.fastq.gz` are accepted. strandedness`: `auto`, `rf`, `fr`, `unstranded`. `individual` records metadata; the current differential model is an **unpaired two-group** model. Paired or repeated-measure designs must be analyzed with a suitable model outside this release.
 
 Set `reads.cleaned: true` to reuse cleaned reads, or `false` to run fastp. Sample exclusions must be performed explicitly in the sample sheet; no breed or tissue is automatically excluded.
 
