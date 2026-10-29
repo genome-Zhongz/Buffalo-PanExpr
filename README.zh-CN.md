@@ -45,16 +45,17 @@ RNA 组装、表达、AUGUSTUS 结构匹配与蛋白同源证据分列呈现。�
 
 同源注释：设置 `homology.enabled: true` 和本地 `database`。保留蛋白描述、登录号、一致性、覆盖度和 E-value。“高一致性且覆盖较广”要求一致性 ≥80%、目标蛋白覆盖度 ≥80%、比对长度 ≥50 aa、E-value ≤1e-10；这不是转录本完整度指标。只有数据库标题带 GN 字段时提取符号，否则报告蛋白描述和登录号。
 
-`homology/homology_summary.md` 自动统计当前表达候选的蛋白匹配数量；`primary_Pvalue/homology_summary.md` 单独统计原始 P 值差异候选。两者均提供中英文描述和 JSON，HTML 报告也显示汇总。例如，实际结果为 48/42/25 时会输出：“48 个候选中，42 个检出蛋白同源匹配，其中 25 个达到较高一致性和较广蛋白覆盖标准。”数量按基因统计，不按匹配蛋白或转录本条数累计；未注释和搜索后未检出分开统计。
+`homology/homology_summary.md` 自动统计当前表达候选的蛋白匹配数量；`primary_Pvalue/homology_summary.md` 单独统计P 值差异候选。两者均提供中英文描述和 JSON，HTML 报告也显示汇总。例如，实际结果为 48/42/25 时会输出：“48 个候选中，42 个检出蛋白同源匹配，其中 25 个达到较高一致性和较广蛋白覆盖标准。”数量按基因统计，不按匹配蛋白或转录本条数累计；未注释和搜索后未检出分开统计。
 
-差异分析：设置 `analysis.differential: true`、control/treatment 和样本 group。使用原始 counts、CPM 过滤、TMM 和 edgeR robust QL 检验。当前只支持非配对两组比较，每组至少两个独立生物学样本；重复测量、配对设计需另行建模。原始 P 和 FDR 结果分别输出。
+差异分析：设置 `analysis.differential: true`、control/treatment 和样本 group。使用原始 counts、CPM 过滤、TMM 和 edgeR robust QL 检验。当前只支持非配对两组比较，每组至少两个独立生物学样本；重复测量、配对设计需另行建模。P 和 FDR 结果分别输出。
 
-**主结果采用原始 P<0.05 且 |log2FC|>1。优先查看 `primary_Pvalue/`：**
+**主结果采用P<0.05 且 |log2FC|>1。优先查看 `primary_Pvalue/`：**
 
-- `nonreference_candidates_P05.csv`：按 P 值排序的非参考候选，含方向、可用的同源蛋白描述与转录本 ID。
+- `nonreference_candidates_P05.csv`：按 P 值排序的非参考候选，P 列记录 P 值，另含方向、同源蛋白描述与转录本 ID。
 - `nonreference_candidates_P05.longest.fa`：这些候选每基因一条最长转录本；另有全部转录本与 GTF。
-- `Volcano_Pvalue.png`、`MDS_TPM.png`：启用绘图后生成的透明主图；候选不足时不虚构 MDS。
-- `all_genes_P05.csv`：含参考和非参考的全部原始 P 候选。
+- `Volcano_P_unmarked.png`：不带非参考基因标记的火山图。
+- `Volcano_Pvalue.png`、`MDS_TPM.png`：启用绘图后生成的透明主图；候选少于 2 个时不生成 MDS。
+- `all_genes_P05.csv`：含参考和非参考的全部P 候选。
 
 FDR 结果只在完整 `differential_expression/` 目录中保留供参考。差异候选不再用 TPM 阈值二次过滤，以免丢失通过原始 counts 检验的基因。
 

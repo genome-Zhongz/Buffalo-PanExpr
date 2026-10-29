@@ -91,7 +91,9 @@ if(isTRUE(cfg$differential)){
     for(rule in c('FDR05_FC1','P05_FC1')){
       tab$Expression <- ifelse(tab[[paste0('selected_',rule)]],tab$direction,'NS')
       tab$ordinate <- -log10(pmax(if(rule=='P05_FC1')tab$PValue else tab$FDR,.Machine$double.xmin))
-      p <- ggplot(tab,aes(logFC,ordinate,color=Expression))+geom_point(size=1.1,alpha=.7)+scale_color_manual(values=c(Up='#36C989',Down='#9775CC',NS='#BBBBBB'))+geom_vline(xintercept=c(-1,1),linetype=2)+geom_hline(yintercept=-log10(.05),linetype=2)+geom_point(data=tab[tab$is_nonreference,,drop=FALSE],shape=5,color='black',size=2)+labs(x=paste0('log2FC (',treatment,' / ',control,')'),y=if(rule=='P05_FC1')'-log10(raw P)' else '-log10(FDR)',subtitle=if(rule=='P05_FC1')'Exploratory raw-P candidates; not FDR-controlled' else 'BH FDR-controlled selection')
+      p <- ggplot(tab,aes(logFC,ordinate,color=Expression))+geom_point(size=1.1,alpha=.7)+scale_color_manual(values=c(Up='#36C989',Down='#9775CC',NS='#BBBBBB'))+geom_vline(xintercept=c(-1,1),linetype=2)+geom_hline(yintercept=-log10(.05),linetype=2)+labs(x=paste0('log2FC (',treatment,' / ',control,')'),y=if(rule=='P05_FC1')'-log10(P)' else '-log10(FDR)')
+      if(rule=='P05_FC1')saveplot(p,'Volcano_P05_FC1_unmarked')
+      p <- p+geom_point(data=tab[tab$is_nonreference,,drop=FALSE],shape=5,color='black',size=2)
       saveplot(p,paste0('Volcano_',rule))
     }
     selected <- tab$gene_id[tab$selected_P05_FC1 & tab$is_nonreference]
@@ -99,8 +101,8 @@ if(isTRUE(cfg$differential)){
       x <- log2(tpm[selected,samples$sample,drop=FALSE]+1)
       fit <- cmdscale(dist(t(x)),k=2,eig=TRUE)
       scores <- data.frame(sample=samples$sample,group=groups,Dimension1=fit$points[,1],Dimension2=fit$points[,2])
-      write_tsv(scores,file.path(figdir,'MDS_nonreference_rawP_candidates_TPM.coordinates.tsv'))
-      saveplot(ggplot(scores,aes(Dimension1,Dimension2,color=group))+geom_point(size=3)+labs(color='Stage',subtitle='Descriptive MDS after candidate selection; log2(TPM + 1)'),'MDS_nonreference_rawP_candidates_TPM')
+      write_tsv(scores,file.path(figdir,'MDS_nonreference_P_candidates_TPM.coordinates.tsv'))
+      saveplot(ggplot(scores,aes(Dimension1,Dimension2,color=group))+geom_point(size=3)+labs(color='Group'),'MDS_nonreference_P_candidates_TPM')
     }else writeLines('Fewer than two selected nonreference candidates; MDS not estimated.',file.path(figdir,'MDS_not_estimable.txt'))
   }
 }

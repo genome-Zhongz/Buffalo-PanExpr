@@ -128,7 +128,7 @@ def summarize(work,output,config,gene_ids=None,copy_matrices=True):
                 source_reference=source_reference,source_provenance='Counting GTF, source per-sample quantification, reference manifest and transcript/reference sequences verified',
                 limitations=['Expression and assembly do not prove protein-coding function.',
                              'gffcompare classes are relative to the supplied prediction guide, not novelty against the original genome.',
-                             'Homologs may represent related copies, fragments or pseudogenes; these states require independent validation.'])
+                             'Protein homology does not establish locus-specific orthology or protein function.'])
     atomic_json(output/'report/summary.json',report)
     render_report(output,report)
     return report
@@ -141,8 +141,8 @@ def render_report(output,summary):
     for r in rows:cells+='<tr>'+''.join('<td>'+html.escape(str(r.get(k,'')))+'</td>' for k in keys)+'</tr>'
     content='<!doctype html><meta charset="utf-8"><title>nonref-rna results</title><style>body{font:15px sans-serif;margin:2em}table{border-collapse:collapse}td,th{border:1px solid #ddd;padding:6px}th{background:#eee}</style><h1>Nonreference RNA candidates</h1><pre>'+html.escape(__import__('json').dumps(summary,indent=2,ensure_ascii=False))+'</pre>'+cells+'</table>'
     if summary.get('primary_differential'):
-        content=content.replace('<h1>Nonreference RNA candidates</h1>','<h1>Nonreference RNA candidates</h1><p><strong>Primary differential results: raw P &lt;0.05 and |log2FC| &gt;1 (exploratory).</strong> <a href="../primary_Pvalue/nonreference_candidates_P05.csv">Open P-value candidate CSV</a> · <a href="../primary_Pvalue/nonreference_candidates_P05.longest.fa">Download candidate FASTA</a></p>')
-    for label,stats in [('Expression candidates',summary.get('homology')),('Raw-P differential candidates',summary.get('primary_differential',{}).get('homology'))]:
+        content=content.replace('<h1>Nonreference RNA candidates</h1>','<h1>Nonreference RNA candidates</h1><p><strong>Primary differential results: P &lt;0.05 and |log2FC| &gt;1.</strong> <a href="../primary_Pvalue/nonreference_candidates_P05.csv">Open P-value candidate CSV</a> · <a href="../primary_Pvalue/nonreference_candidates_P05.longest.fa">Download candidate FASTA</a></p>')
+    for label,stats in [('Expression candidates',summary.get('homology')),('P-value differential candidates',summary.get('primary_differential',{}).get('homology'))]:
         if stats and 'text_zh' in stats:
             content+='<h2>'+label+'</h2><p>'+html.escape(stats['text_zh'])+'</p><p>'+html.escape(stats['text_en'])+'</p>'
     (output/'report/report.html').write_text(content,encoding='utf-8')
