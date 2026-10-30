@@ -122,8 +122,10 @@ python tests/make_smoke_fixture.py /tmp/nonref-smoke
 nonref-rna run --config /tmp/nonref-smoke/config.yaml --samples /tmp/nonref-smoke/samples.tsv --out /tmp/nonref-smoke/run
 ```
 
-## ref   https://figshare.com/account/articles/34859079?file=70889847
-
+## ref  
+```bash
+https://figshare.com/account/articles/34859079?file=70889847
+```
 
 ## Upstream documentation
 
